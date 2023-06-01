@@ -338,11 +338,11 @@ if submit or st.session_state.Submit:
     # if st.session_state.age:
     with st.spinner('情報取得中・・・'):
         st.session_state.Submit = True
-        try:
-            VideoTime, hotspots = FindElements(url)
-        except:
-            ErrorMessage('URL')
-            exit()
+        # try:
+        VideoTime, hotspots = FindElements(url)
+        # except:
+        #     ErrorMessage('URL')
+        #     exit()
         VideoTime = Formating(VideoTime)
         Seconds = ToSecond(VideoTime)
         try:
