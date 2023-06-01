@@ -6,4 +6,5 @@ selenium==4.9.1
 streamlit==1.22.0
 streamlit-modal==0.1.0
 streamlit-webrtc==0.45.0
+webdriver-manager==3.8.6
 yt-dlp==2023.3.4
