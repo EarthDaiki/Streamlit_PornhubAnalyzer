@@ -1,2 +1,2 @@
 ffmpeg
-chromium-browser
+firefox-esr
