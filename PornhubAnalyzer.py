@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
@@ -14,6 +15,7 @@ import os
 import subprocess
 from streamlit_modal import Modal
 import streamlit.components.v1 as components
+from webdriver_manager.firefox import GeckoDriverManager
 
 pd.set_option('display.max_rows', 1000)
 pd.set_option('display.max_columns', 500)
@@ -34,9 +36,13 @@ Filename = None
 
 @st.cache_data
 def FindElements(url):
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    firefoxOptions = Options()
+    firefoxOptions.add_argument("--headless")
+    service = Service(GeckoDriverManager().install())
+    driver = webdriver.Firefox(
+        options=firefoxOptions,
+        service=service,
+    )
     driver.get(url)
     sleep(2)
     VideoTime = driver.find_element(By.CSS_SELECTOR, 'span.mgp_total').get_attribute("innerHTML")
