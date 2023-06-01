@@ -1,10 +1,10 @@
+#webdrive is installed from packages.txt
+
 import matplotlib.pyplot as plt
 import pandas as pd
 from selenium import webdriver
-# from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-# from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
 import json
 import datetime
