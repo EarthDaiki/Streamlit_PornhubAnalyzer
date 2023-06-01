@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+# from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
+# from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
 import json
 import datetime
@@ -34,9 +35,9 @@ Filename = None
 
 @st.cache_data
 def FindElements(url):
-    options = webdriver.ChromeOptions()
+    options = Options()
     options.add_argument('--headless')
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    driver = webdriver.Chrome(options=options)
     driver.get(url)
     sleep(2)
     VideoTime = driver.find_element(By.CSS_SELECTOR, 'span.mgp_total').get_attribute("innerHTML")
