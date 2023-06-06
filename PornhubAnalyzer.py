@@ -38,11 +38,7 @@ def FindElements(url):
     options = Options()
     options.add_argument('--headless')
     driver = webdriver.Chrome(options=options)
-    try:
-        driver.get(url)
-    except:
-        ErrorMessage('Cache')
-        exit()
+    driver.get(url)
     sleep(2)
     VideoTime = driver.find_element(By.CSS_SELECTOR, 'span.mgp_total').get_attribute("innerHTML")
 
