@@ -38,7 +38,11 @@ def FindElements(url):
     options = Options()
     options.add_argument('--headless')
     driver = webdriver.Chrome(options=options)
-    driver.get(url)
+    try:
+        driver.get(url)
+    except:
+        ErrorMessage('Cache')
+        exit()
     sleep(2)
     VideoTime = driver.find_element(By.CSS_SELECTOR, 'span.mgp_total').get_attribute("innerHTML")
 
@@ -142,6 +146,8 @@ def ErrorMessage(Error):
         st.error("リプレイ情報が存在しません")
     elif Error == "Convert":
         st.error('mp4にコンバートする際にエラーが起きました')
+    elif Error == 'Cache':
+        st.error('画面を再度読み込み、画面下にある"キャッシュを消す"をクリックしてキャッシュを綺麗にしてください')
 
 def GetVideos(i):
     Start_Seconds = 0
@@ -317,9 +323,6 @@ def OnChangeAudio():
 def DeleteFindElementsCache():
     FindElements.clear()
 
-def DeleteCache():
-    st.cache_data.clear()
-
 if "Submit" not in st.session_state:
     st.session_state.Submit = False
 if "download_video" not in st.session_state:
@@ -336,10 +339,7 @@ col1, col2 = st.columns(2)
 st.title('Pornhub Analyzer🚀')
 with st.form('Graph'):
     url = st.text_input('**MostReplayedが存在する動画のURLを入れてください**', placeholder='https://www.pornhub.com/view_video.php?viewkey=')
-    with col1:
-        submit = st.form_submit_button('Start Analyzing', on_click=DeleteFindElementsCache)
-    with col2:
-        st.form_submit_button('Click when get errors', on_click=DeleteCache, help="エラーが出る場合はこちらをクリックしてキャッシュを消してください")
+    submit = st.form_submit_button('Start Analyzing', on_click=DeleteFindElementsCache)
 
 if submit or st.session_state.Submit:
     if url == '':
@@ -348,11 +348,11 @@ if submit or st.session_state.Submit:
     # if st.session_state.age:
     with st.spinner('情報取得中・・・'):
         st.session_state.Submit = True
-        # try:
-        VideoTime, hotspots = FindElements(url)
-        # except:
-        #     ErrorMessage('URL')
-        #     exit()
+        try:
+            VideoTime, hotspots = FindElements(url)
+        except:
+            ErrorMessage('URL')
+            exit()
         VideoTime = Formating(VideoTime)
         Seconds = ToSecond(VideoTime)
         try:
