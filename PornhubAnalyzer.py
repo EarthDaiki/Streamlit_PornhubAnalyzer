@@ -38,7 +38,12 @@ def FindElements(url):
     options = Options()
     options.add_argument('--headless')
     driver = webdriver.Chrome(options=options)
-    driver.get(url)
+    try:
+        driver.get(url)
+    except:
+        ErrorMessage('Cache')
+        ErrorMessage('Check')
+        exit()
     sleep(2)
     VideoTime = driver.find_element(By.CSS_SELECTOR, 'span.mgp_total').get_attribute("innerHTML")
 
@@ -144,6 +149,8 @@ def ErrorMessage(Error):
         st.error('mp4にコンバートする際にエラーが起きました')
     elif Error == 'Cache':
         st.error('画面を再度読み込み、画面下にある"キャッシュを消す"をクリックしてキャッシュを綺麗にしてください')
+    elif Error == 'Check':
+        st.error('URLが正しくない場合があります。ご確認ください。')
 
 def GetVideos(i):
     Start_Seconds = 0
