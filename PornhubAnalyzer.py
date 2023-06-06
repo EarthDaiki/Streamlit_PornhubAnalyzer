@@ -346,6 +346,7 @@ if submit or st.session_state.Submit:
         ErrorMessage('FilledIn')
         exit()
     # if st.session_state.age:
+    DeleteFindElementsCache()
     with st.spinner('情報取得中・・・'):
         st.session_state.Submit = True
         try:
