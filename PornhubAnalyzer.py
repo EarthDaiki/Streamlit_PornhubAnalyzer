@@ -314,6 +314,9 @@ def OnChangeVideo(Filename):
 def OnChangeAudio():
     AudioDownloader.clear()
 
+def DeleteCache():
+    st.cache_data.clear()
+
 if "Submit" not in st.session_state:
     st.session_state.Submit = False
 if "download_video" not in st.session_state:
@@ -330,7 +333,7 @@ col1, col2 = st.columns(2)
 st.title('Pornhub Analyzer🚀')
 with st.form('Graph'):
     url = st.text_input('**MostReplayedが存在する動画のURLを入れてください**', placeholder='https://www.pornhub.com/view_video.php?viewkey=')
-    submit = st.form_submit_button('Start Analyzing')
+    submit = st.form_submit_button('Start Analyzing', on_click=DeleteCache)
 
 if submit or st.session_state.Submit:
     if url == '':
